@@ -18,3 +18,16 @@ end
 get '/contacts' do
 	erb :contacts
 end
+
+post '/visit' do 
+	@username = params[:username]
+	@phone = params[:phone]
+	@datetime = params[:datetime]
+	
+	f = File.open './public/users.txt', 'a'
+	f.write "User: #{@username}, phone: #{@phone}, Date and time: #{@datetime}! \n\n"
+	f.close
+
+	erb "Thank you! Dear, #{@username} we'll be waiting for you at #{@datetime}!"
+end
+
