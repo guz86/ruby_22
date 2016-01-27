@@ -31,3 +31,13 @@ post '/visit' do
 	erb "Thank you! Dear, #{@username} we'll be waiting for you at #{@datetime}!"
 end
 
+post '/contacts' do 
+	@email = params[:email]
+	@textarea = params[:textarea]
+	
+	f = File.open './public/contacts.txt', 'a'
+	f.write "User: #{@email}, message: #{@textarea}! \n\n"
+	f.close
+
+	erb "Thank you! We'll be write anwser on your e-mail: #{@email}!"
+end
