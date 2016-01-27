@@ -3,7 +3,7 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 
-#sinatra_origin
+#sinatra_origin user_login
 configure do
   enable :sessions
 end
