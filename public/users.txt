@@ -1,9 +1,3 @@
-User: username, phone: phone, Date and time: datetime! 
-
-User: username, phone: phone, Date and time: datetime! 
-
-User: username, phone: phone, Date and time: datetime! 
-
 User: admin, phone: 923882348, Date and time: 20-12-2016 15:30! 
 
 Hairdresser:value, User: admi, phone: 123124, Date and time: 20-12-2016 15:30! 
@@ -13,4 +7,8 @@ Hairdresser:, User: asd, phone: asd, Date and time: 20-12-2016 15:30!
 Hairdresser:, User: asd, phone: asd, Date and time: 20-12-2016 15:30! 
 
 Hairdresser:Gus Fring, User: asd, phone: 123124, Date and time: 20-12-2016 15:30! 
+
+Hairdresser:Gus Fring, User: Roller, phone: 123124, Date and time: 20-12-2016 15:30! 
+
+Hairdresser:Jessie Pinkman, User: addd, phone: d32234, Date and time: 20-12-2016 15:30! 
 

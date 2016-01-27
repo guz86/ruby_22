@@ -3,6 +3,52 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 
+#sinatra_origin
+configure do
+  enable :sessions
+end
+
+helpers do
+  def username
+    session[:identity] ? session[:identity] : 'Hello stranger'
+  end
+end
+
+before '/secure/*' do
+  unless session[:identity]
+    session[:previous_url] = request.path
+    @error = 'Sorry, you need to be logged in to visit ' + request.path
+    halt erb(:login_form)
+  end
+end
+
+get '/login/form' do
+  erb :login_form
+end
+
+post '/login/attempt' do
+  @username = params['username']
+  @password = params['password']
+    if @username == 'admin' && @password == 'secret'
+      session[:identity] = params['username']
+      where_user_came_from = session[:previous_url] || '/'
+      redirect to where_user_came_from
+    else
+      erb :login_form
+    end
+end
+
+get '/logout' do
+  session.delete(:identity)
+  erb "<div class='alert alert-message'>Logged out</div>"
+end
+
+get '/secure/place' do
+  erb 'This is a secret place that only <%=session[:identity]%> has access to!'
+end
+#sinatra_origin
+
+
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
 end
@@ -20,16 +66,16 @@ get '/contacts' do
 end
 
 post '/visit' do 
-	@username = params[:username]
+	@name = params[:name]
 	@phone = params[:phone]
 	@datetime = params[:datetime]
 	@Hairdresser = params[:hairdresser]
 
 	f = File.open './public/users.txt', 'a'
-	f.write "Hairdresser:#{@Hairdresser}, User: #{@username}, phone: #{@phone}, Date and time: #{@datetime}! \n\n"
+	f.write "Hairdresser:#{@Hairdresser}, User: #{@name}, phone: #{@phone}, Date and time: #{@datetime}! \n\n"
 	f.close
 
-	erb "Thank you! Dear, #{@username} we'll be waiting for you at #{@datetime} Your Hairdresser:#{@Hairdresser}!"
+	erb "Thank you! Dear, #{@name} we'll be waiting for you at #{@datetime} Your Hairdresser:#{@Hairdresser}!"
 end
 
 post '/contacts' do 
